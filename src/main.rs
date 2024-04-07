@@ -1,5 +1,6 @@
 mod db;
 mod jwt;
+
 use actix_cors::Cors;
 use actix_files as fs;
 use actix_web::{http::header, web, App, FromRequest, HttpRequest, HttpResponse, HttpServer};
@@ -16,15 +17,18 @@ use crate::{
 
 // For easier return
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+
+// Struct for getting new user info from the frontend
 #[derive(Deserialize)]
 struct NewUser {
     username: String,
     password: String,
 }
 
+// Post method for getting the new user info from the front end
 async fn signup_handler(
     pool: web::Data<sqlx::SqlitePool>,
-    form: web::Json<NewUser>,
+    form: web::Json<NewUser>, // front end will send this NewUser struct
 ) -> Result<HttpResponse> {
     info!("Signup handler called");
     let hashed_password = db::users::hash_password(&form.password)?;
@@ -34,11 +38,12 @@ async fn signup_handler(
         password: hashed_password,
     };
     user.insert_user(&pool).await?;
-    let token = generate_jwt(&form.username)?;
+    let token = generate_jwt(&form.username)?; // learn this section more
 
-    Ok(HttpResponse::Ok().json(json!({ "token": token })))
+    Ok(HttpResponse::Ok().json(json!({ "token": token }))) // this also send a token to frontend
 }
 
+// Struct for getting new post info from frontend
 #[allow(dead_code)]
 #[derive(Deserialize)]
 struct NewPost {
@@ -54,7 +59,7 @@ async fn newpost_handler(
     info!("New post handler called");
 
     // Extract the token from the Authorization header
-    let auth_header = req.headers().get("Authorization");
+    let auth_header = req.headers().get("Authorization"); // Frontend will send token to backend here. You have to validate it
     let token = match auth_header {
         Some(header_value) => header_value.to_str().unwrap().trim_start_matches("Bearer "),
         None => return Ok(HttpResponse::Unauthorized().finish()),
@@ -101,6 +106,7 @@ async fn main() -> Result<()> {
     let pool = db::connect_to_db()
         .await
         .expect("Failed to connect to the database");
+
     create_tables(&pool).await.expect("Failed to create tables");
 
     HttpServer::new(move || {
