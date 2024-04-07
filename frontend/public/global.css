@@ -1,0 +1,115 @@
+/* Normal mode styles */
+body {
+	background-color: #F5F5F5;
+	color: #333333;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 16px;
+	line-height: 1.5;
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px 40px;
+}
+
+.navbar {
+	border-bottom: 1px solid #333333;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+.navbar ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.navbar li {
+	display: inline;
+	margin-right: 10px;
+}
+
+.post {
+	border: 1px solid #333333;
+	margin-bottom: 20px;
+	padding: 20px;
+}
+
+.post p {
+	margin: 0;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+	background-color: #FFFFFF;
+	border: 1px solid #333333;
+	color: #333333;
+	padding: 5px;
+	margin-bottom: 10px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+input[type="submit"] {
+	background-color: #007BFF;
+	border: 1px solid #007BFF;
+	color: #FFFFFF;
+	cursor: pointer;
+	padding: 10px 20px;
+	transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+	background-color: #0056B3;
+}
+
+a,
+a:visited {
+	color: #007BFF;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/* Dark mode styles */
+.dark-mode {
+	background-color: #1E1E2E;
+	color: #CDD6F4;
+}
+
+.dark-mode .navbar {
+	border-color: #CDD6F4;
+}
+
+.dark-mode .post {
+	border-color: #CDD6F4;
+}
+
+.dark-mode input[type="text"],
+.dark-mode input[type="password"],
+.dark-mode textarea {
+	background-color: #313244;
+	border-color: #CDD6F4;
+	color: #CDD6F4;
+}
+
+.dark-mode input[type="submit"] {
+	background-color: #89DCEB;
+	border-color: #CDD6F4;
+	color: #1E1E2E;
+}
+
+.dark-mode input[type="submit"]:hover {
+	background-color: #F28FAD;
+}
+
+.dark-mode a,
+.dark-mode a:visited {
+	color: #89DCEB;
+}
+
+.dark-mode a:hover {
+	text-decoration: underline;
+}
